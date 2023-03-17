@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Champions League</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style type="text/css">
+		.team {
+			cursor: pointer;
+		}
+		.selected {
+			background-color: #ccc;
+		}
+		.final {
+			font-weight: bold;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".team").click(function() {
+				var winner = $(this).text();
+				$(this).addClass("selected");
+				$(this).siblings().removeClass("selected");
+				if ($(this).parent().hasClass("quarterfinal")) {
+					var nextRound = $(this).parent().next();
+					nextRound.find(".team:contains('" + winner + "')").appendTo(nextRound);
+				} else if ($(this).parent().hasClass("semifinal")) {
+					var nextRound = $(this).parent().next();
+					nextRound.find(".team:contains('" + winner + "')").appendTo(nextRound);
+					if (nextRound.children(".team").length == 1) {
+						nextRound.children(".team").addClass("final");
+					}
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>Champions League</h1>
+	<h2>Quarterfinals</h2>
+	<div class="quarterfinal">
+		<div>
+			<span class="team">Real Madrid</span> vs. <span class="team">Chelsea</span>
+		</div>
+		<div>
+			<span class="team">Benfica</span> vs. <span class="team">Inter Milan</span>
+		</div>
+		<div>
+			<span class="team">Manchester City</span> vs. <span class="team">Bayern Munich</span>
+		</div>
+		<div>
+			<span class="team">AC Milan</span> vs. <span class="team">Napoli</span>
+		</div>
+	</div>
+	<h2>Semifinals</h2>
+	<div class="semifinal" style="display: none;">
+		<div>
+			<span class="team"></span>
+		</div>
+		<div>
+			<span class="team"></span>
+		</div>
+	</div>
+	<div class="semifinal" style="display: none;">
+		<div>
+			<span class="team"></span>
+		</div>
+		<div>
+			<span class="team"></span>
+		</div>
+	</div>
+	<h2>Final</h2>
+	<div class="final" style="display: none;">
+		<div>
+			<span class="team"></span>
+		</div>
+	</div>
+</body>
+</html>
